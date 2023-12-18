@@ -1,3 +1,5 @@
+// import Input from '@/components/Input/Input.tsx'
+import Input from '@/components/Input/Input'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
@@ -16,7 +18,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body>
+        {/* {children} */}
+        <div className="p-3 flex justify-center">
+          <Input intent="primary" errorMessage="Error de prueba" />
+        </div>
+      </body>
     </html>
   )
 }

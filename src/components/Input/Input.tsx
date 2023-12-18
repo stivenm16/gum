@@ -1,4 +1,5 @@
-import { cva, type VariantProps } from 'class-variance-authority'
+'use client'
+import { cva } from 'class-variance-authority'
 import React, { ChangeEvent, FocusEvent, KeyboardEvent } from 'react'
 
 const input = cva('input', {
@@ -40,7 +41,6 @@ const input = cva('input', {
     size: {
       small: ['text-sm', 'p-3'],
       medium: ['text-base', 'p-4'],
-      //   big: ['text-xl', 'p-3'],
     },
   },
   defaultVariants: {
@@ -49,14 +49,18 @@ const input = cva('input', {
   },
 })
 
-type InputVariantProps = VariantProps<typeof input>
+// type InputVariantProps = VariantProps<typeof input>
 interface EnhancedInputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
-  errorMessage?: string
+  extends React.InputHTMLAttributes<HTMLInputElement> {}
+
+type RequiredProps = {
+  intent: 'primary' | 'secondary'
+  size: 'small' | 'medium' | 'big'
+  errorMessage: string
 }
-export interface InputProps
-  extends Omit<EnhancedInputProps, keyof InputVariantProps>,
-    InputVariantProps {}
+type OptionalProps = Partial<EnhancedInputProps>
+
+type InputProps = Omit<RequiredProps, keyof OptionalProps> & OptionalProps
 
 const Input: React.FC<InputProps> = ({
   className,
@@ -66,7 +70,7 @@ const Input: React.FC<InputProps> = ({
   onChange,
   onBlur,
   value,
-  errorMessage = 'Please enter only numbers',
+  errorMessage = 'Please type a valid value',
   ...props
 }) => {
   const [error, setError] = React.useState<string | null>(null)
@@ -131,7 +135,7 @@ const Input: React.FC<InputProps> = ({
       <input
         className={input({ intent, className })}
         type={type}
-        placeholder="Enter numbers only"
+        placeholder="Write something cool!"
         onChange={handleInputChange}
         onKeyDown={handleInputKeyDown}
         onBlur={handleInputBlur}

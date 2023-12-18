@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react'
-import Input from './Input'
+import Modal from './Modal'
 
 const meta: Meta = {
-  title: 'Input',
-  component: Input,
+  title: 'Modal',
+  component: Modal,
   parameters: {
     layout: 'centered',
   },
@@ -16,6 +16,6 @@ type Story = StoryObj<typeof meta>
 export const Primary: Story = {
   args: {
     intent: 'primary',
-    // size: 'small',
+    children: 'Test',
   },
 }
